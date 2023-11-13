@@ -1,12 +1,8 @@
-/**
- * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
- *
- *
- * @param A string字符串
- * @return int整型
- */
-export function getLongestPalindrome(s: string): number {
-  let len = 0;
+export function longestPalindrome(s: string): string {
+  let l = 0,
+    r = l,
+    len = 0;
+
   function findPalindromeLen(str, l, r) {
     let ret = 0;
     while (l >= 0 && r < str.length && str[l] === str[r]) {
@@ -20,7 +16,13 @@ export function getLongestPalindrome(s: string): number {
   for (let i = 0; i < s.length; i++) {
     const len1 = findPalindromeLen(s, i, i);
     const len2 = findPalindromeLen(s, i, i + 1);
-    len = Math.max(len2, len1, len);
+
+    const longest = Math.max(len2, len1);
+    if (longest > len) {
+      len = longest;
+      l = i - Math.floor((longest - 1) / 2);
+      r = i + Math.floor(longest / 2);
+    }
   }
-  return len;
+  return s.slice(l, r + 1);
 }

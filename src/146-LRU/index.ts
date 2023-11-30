@@ -22,10 +22,10 @@ export class LRUCache {
   }
 
   private moveToHead(node: LinkNode) {
-    this.removeFromList(node)
+    this.removeFromList(node);
     node.next = this.head;
     node.prev = null;
-    if(this.head) {
+    if (this.head) {
       this.head.prev = node;
     }
     this.head = node;
@@ -46,31 +46,28 @@ export class LRUCache {
   }
   private removeLRUItem() {
     const lastItem = this.tail.key;
-    console.log(this.map,'lasteItem',lastItem)
-    this.map.delete(lastItem)
-    console.log(this.map)
+    this.map.delete(lastItem);
     this.removeFromList(this.tail);
   }
 
-  private  removeFromList(node: LinkNode) {
-    if(node.prev) {
+  private removeFromList(node: LinkNode) {
+    if (node.prev) {
       node.prev.next = node.next;
     } else {
-      this.head=node.next
+      this.head = node.next;
     }
 
-    if(node.next ){
+    if (node.next) {
       node.next.prev = node.prev;
     } else {
-      this.tail=node.prev;
+      this.tail = node.prev;
     }
-
   }
 
   get(key: number): number {
     if (this.map.has(key)) {
       const node = this.map.get(key);
-      const value= node.value
+      const value = node.value;
       this.moveToHead(node);
       return value;
     } else {
@@ -88,7 +85,6 @@ export class LRUCache {
       this.addToHead(node);
       this.map.set(key, node);
       if (this.map.size > this.capacity) {
-
         this.removeLRUItem();
       }
     }

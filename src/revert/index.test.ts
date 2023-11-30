@@ -1,8 +1,9 @@
 // sum.test.js
 import { expect, test } from "vitest";
-import { rob } from "./index";
+import { revertNumber } from "./index";
 
 test("basic", () => {
-  expect(rob([1, 2, 3, 1])).toBe(4);
-  expect(rob([2, 7, 9, 3, 1])).toBe(12);
+  expect(revertNumber(23456)).toBe(65432);
+  expect(revertNumber(-123)).toBe(-321);
+expect(revertNumber(-123456789)).toBe(-987654321)
 });

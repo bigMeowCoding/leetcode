@@ -6,29 +6,26 @@ function getAllArrays(array, value) {
   /**
    * 此处写代码逻辑
    */
-  if (!array.length || value < 0) {
-    return [];
-  }
-  let result = [];
+  let result:number[][] = [];
 
-  for (let i = 0; i < array.length; i++) {
-    const item = array[i];
-    if (item === value) {
-      result.push([item]);
-    } else {
-      let restArr = getAllArrays(array.slice(i + 1), value - item);
-      if (restArr.length) {
-        restArr = restArr.map((i) => {
-          i.push(item);
-        return i;
-        });
-        result = result.concat(restArr);
+  function backTrack(arr, value, path) {
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i] === value) {
+        result.push(path.concat(arr[i]));
+      } else {
+        const remain = value-arr[i];
+        if(remain>0) {
+          const newArr=arr.slice(i+1)
+          backTrack(newArr,remain,path.concat(arr[i]))
+        }
       }
     }
   }
 
+  backTrack(array, value, []);
+
   return result;
 }
 const result1 = getAllArrays([1, 2, 3, 4, 5], 6);
-const result2 = getAllArrays([1, , 3], 6);
+const result2 = getAllArrays([1,  3], 6);
 console.log(result1, result2);

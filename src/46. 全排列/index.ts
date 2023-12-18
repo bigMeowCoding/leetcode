@@ -1,4 +1,4 @@
-function permute(nums: number[]): number[][] {
+export function permute(nums: number[]): number[][] {
   let ret = [];
   backTrack([]);
   function backTrack(path) {
